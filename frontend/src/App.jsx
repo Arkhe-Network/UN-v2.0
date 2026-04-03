@@ -4,6 +4,7 @@ import NIPSubnets from './components/NIPSubnets';
 import AgentSkills from './components/AgentSkills';
 import RecentProjects from './components/RecentProjects';
 import RoadmapTracker from './components/RoadmapTracker';
+import DeploymentHub from './components/DeploymentHub';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
+          <DeploymentHub />
           <NIPSubnets />
           <RecentProjects />
         </div>

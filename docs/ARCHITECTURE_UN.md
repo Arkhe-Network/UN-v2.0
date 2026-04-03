@@ -12,6 +12,7 @@ The UN-v2.0 platform is a federated governance network that integrates physical 
 ### 2. Nostr-Mesh Layer (NIP Subagents)
 - **NIP Subnets**: Each NIP (01, 34, 46, etc.) is a specialized subagent providing a core service.
 - **Mesh-LLM Orchestration**: Orchestrates LLM reasoning across the distributed Nostr network.
+- **Web3 AGI Stack Implementation**: Every subagent follows the 7-layer Web3 AGI architecture (OWS, MPP, etc.), as detailed in [docs/WEB3_AGI_STACK.md](WEB3_AGI_STACK.md).
 
 ### 3. AO Gateway Layer
 - **AO Gateway**: Federated interface to the global AO network.

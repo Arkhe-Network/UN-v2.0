@@ -7,6 +7,7 @@ import RoadmapTracker from './components/RoadmapTracker';
 import DeploymentHub from './components/DeploymentHub';
 import HandoverMonitor from './components/HandoverMonitor';
 import TokenomicsView from './components/TokenomicsView';
+import Web3AGIStack from './components/Web3AGIStack';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
+          <Web3AGIStack />
           <TokenomicsView />
           <DeploymentHub />
           <HandoverMonitor />

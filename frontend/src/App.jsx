@@ -3,6 +3,7 @@ import SystemStatus from './components/SystemStatus';
 import NIPSubnets from './components/NIPSubnets';
 import AgentSkills from './components/AgentSkills';
 import RecentProjects from './components/RecentProjects';
+import RoadmapTracker from './components/RoadmapTracker';
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         </div>
         <aside className="space-y-8">
           <AgentSkills />
+          <RoadmapTracker />
           <div className="p-6 rounded-xl border bg-primary/5 border-primary/20">
             <h3 className="text-sm font-bold mb-2 uppercase tracking-wide">AO Message Feed</h3>
             <div className="space-y-3 font-mono text-[10px]">

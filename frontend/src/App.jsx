@@ -6,6 +6,7 @@ import RecentProjects from './components/RecentProjects';
 import RoadmapTracker from './components/RoadmapTracker';
 import DeploymentHub from './components/DeploymentHub';
 import HandoverMonitor from './components/HandoverMonitor';
+import TokenomicsView from './components/TokenomicsView';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
+          <TokenomicsView />
           <DeploymentHub />
           <HandoverMonitor />
           <NIPSubnets />

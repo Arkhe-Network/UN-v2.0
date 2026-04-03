@@ -17,8 +17,15 @@ The UN-v2.0 platform is a federated governance network that integrates physical 
 - **AO Gateway**: Federated interface to the global AO network.
 - **Compliance Ledger**: Immutable record of jurisdictional state.
 
-### 4. Governance Dashboard (ONU 2.0 Validator)
-- **Handover Monitor**: Real-time visualization of quantum teleportation progress and identity reassignment.
+### 4. Coherence Sustainability Layer (Tokenomics)
+- **Economic Infrastructure**: Based on the **Berechman (2018)** model, treat the network as a physical utility.
+- **Coherence Reserve Fund**: Treasury-managed fund for hardware renewal (NV centers, VCSELs).
+- **λΩ Utility**: Used for staking, handover fees, and rewarding coherence maintenance.
+- **Dynamic Fees**: Handover and handshake fees adjust based on network $T_2^*$ decay and reputation history.
+
+### 5. Governance Dashboard (ONU 2.0 Validator)
+- **Tokenomics View**: Real-time monitoring of stake distribution and the Coherence Reserve.
+- **Handover Monitor**: Visualization of quantum teleportation progress and identity reassignment.
 - **Deployment Hub**: Autonomous package launch via specialized 'Arbor' subagents.
 - **Subagent Scoring**: Visualizing the performance of the NIP-subnets.
 

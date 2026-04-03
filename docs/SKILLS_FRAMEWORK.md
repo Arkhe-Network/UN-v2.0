@@ -2,32 +2,23 @@
 
 ## Overview
 
-Inspired by the `block/goose` architecture, UN-v2.0 implements a **Skills Framework** that allows subagents to autonomously enhance and "arborize" their capabilities. This is achieved through the integration of the **Model Context Protocol (MCP)**.
+Inspired by the `block/goose` architecture, UN-v2.0 implements a **Skills Framework** where subagents "arborize" their capabilities through **MCP Tools** and **Quantum Protocols**.
 
-## Core Concepts
-
-### 1. Arborization (Enhancement)
-Subagents do not have fixed capabilities. Instead, they "arborize" by discovering and attaching new **MCP Servers**. These servers provide tools for:
-- **Governance Logic**: Jurisdictional analysis and project evaluation.
-- **System Operation**: Monitoring AO Gateway and GPS status.
-- **Resource Management**: Allocation of computational and financial assets.
-
-### 2. Deepening (Specialization)
-Each subagent can deepen its skills in specific areas (e.g., Compliance, Transparency, or Operations Room) by fine-tuning their local reasoning loop and tool selection.
-
-### 3. Multiplication (Federation)
-Skills are not silos. When one subagent discovers a more efficient way to solve a task, it "multiplies" that skill by publishing the corresponding MCP Tool definition to the **Global Mesh**.
-
-## MCP Tool Layer
-
-Subagents interact with the physical and digital world through a standardized tool layer:
+## MCP Tool Layer (Standard & Advanced)
 
 | Tool Category | Example MCP Tool | Purpose |
 | :--- | :--- | :--- |
 | **Sovereignty** | `sign_governance_event` | Cryptographic proof of jurisdictional state. |
+| **Quantum Ops** | `teleport_quantum_state` | Orchestrating state transfer between QD nodes. |
+| **Identity** | `handover_identity_on_chain` | Atomic reassignment of node stake and reputation. |
 | **Jurisdiction** | `verify_gps_coordinates` | Validating physical boundaries. |
-| **Compliance** | `check_smc_v2_status` | Ensuring alignment with AO protocols. |
-| **Operations** | `allocate_agent_resources` | Managing compute power in the mesh. |
+| **Deployment** | `publish_maven_package` | Autonomous artifact launch to global registries. |
+
+## The "Arborization" Lifecycle
+
+1. **Discovery**: Subagent identifies a roadmap node.
+2. **Deepening**: Subagent attaches the corresponding **MCP Server**.
+3. **Multiplication**: Subagent federates the skill across the mesh.
 
 ---
 *Arborizing the $\tau$-field.*

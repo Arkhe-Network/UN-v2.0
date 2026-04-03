@@ -23,6 +23,7 @@ The primary objective is to expand ONU 2.0 from a prototype to a comprehensive g
 - **Compliance & Partnerships:** Finalize Data Protection Impact Assessments (DPIA), join the Esri Partner Network, and establish co-sell partnerships with cloud providers.
 
 ## Core Principles
+- **Subnet Architecture (mesh-llm):** The platform is structured as a decentralized federation of specialized subagents (skills), inspired by the Bittensor subnet model. Each subagent performs a distinct governance or security task (e.g., `Nomos` for policy validation).
 - **Privacy by Design:** Use pseudonymization and PII vaults to comply with privacy laws while maintaining auditability.
 - **Zero-Trust:** Identity-based security for both humans (SSO/OIDC) and workloads (SPIFFE).
 - **Interoperability:** Use open standards and linked data to ensure multinational adoption.

@@ -10,6 +10,7 @@ import (
 	"syscall"
 
 	pb "github.com/Arkhe-Network/UN-v2.0/api/proto"
+	"github.com/Arkhe-Network/UN-v2.0/internal/skills"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -17,11 +18,19 @@ import (
 
 type server struct {
 	pb.UnimplementedControlPlaneServer
-	logger *slog.Logger
+	logger   *slog.Logger
+	registry *skills.Registry
 }
 
 func (s *server) ExecuteSandbox(ctx context.Context, req *pb.ExecuteSandboxRequest) (*pb.ExecuteSandboxResponse, error) {
-	s.logger.Info("Executing sandbox", "task_id", req.TaskId, "jurisdiction", req.JurisdictionId)
+	s.logger.Info("Executing sandbox (subnet/skill)", "task_id", req.TaskId, "jurisdiction", req.JurisdictionId)
+
+	// Route to specialized skill if task_id matches a subnet name
+	if skill, ok := s.registry.GetSkill(req.TaskId); ok {
+		s.logger.Info("Routing to subagent", "skill", skill.Name, "path", skill.Path)
+		// For demo, we just log routing; actual execution would call the skill script (os/exec)
+	}
+
 	// TODO: Implement RBAC and input validation.
 	// TODO: Implement isolation using MicroVMs (Firecracker/Kata).
 	return &pb.ExecuteSandboxResponse{
@@ -51,6 +60,18 @@ func main() {
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 	slog.SetDefault(logger)
 
+	// Initialize the Skill Registry to discover subagents (subnets)
+	registry, err := skills.NewRegistry("skills")
+	if err != nil {
+		logger.Error("failed to initialize skill registry", "error", err)
+		os.Exit(1)
+	}
+
+	logger.Info("Subnets (Skills) discovered", "count", len(registry.ListSkills()))
+	for _, skill := range registry.ListSkills() {
+		logger.Info("  Subnet loaded", "name", skill.Name, "version", skill.Version)
+	}
+
 	// In a real production environment, load certificates from a secure vault or config.
 	// This is a placeholder for mTLS setup as per RFC 8705.
 	// For now, we use a basic TLS setup or insecure if no certs are provided,
@@ -72,7 +93,10 @@ func main() {
 	// For bootstrapping, we'll allow insecure if no certs are configured,
 	// but the project roadmap mandates mTLS.
 	s := grpc.NewServer()
-	pb.RegisterControlPlaneServer(s, &server{logger: logger})
+	pb.RegisterControlPlaneServer(s, &server{
+		logger:   logger,
+		registry: registry,
+	})
 
 	// Graceful shutdown
 	stop := make(chan os.Signal, 1)

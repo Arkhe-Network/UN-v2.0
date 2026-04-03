@@ -36,5 +36,10 @@ This project follows strict architectural and legal guidelines to ensure suitabi
 ### 7. Version Control and Security Hygiene
 - **No Binaries:** Compiled binaries, object files, and secrets (keys, certs, .env files) MUST NOT be committed to the repository. Use `.gitignore` to prevent accidental commits.
 
+### 8. Subnet (Skill) Development
+- **Modularity:** New subagents MUST be implemented as self-contained skills in the `skills/` directory.
+- **Metadata:** Every skill MUST include a `SKILL.md` file defining its name, version, inputs, outputs, and capabilities.
+- **Verification:** When possible, skills should provide digital evidence or ZK-proofs for their outputs to ensure verifiability across the mesh.
+
 ---
 *Failure to comply with these standards will result in the rejection of pull requests.*

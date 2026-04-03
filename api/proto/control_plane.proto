@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package controlplane;
+
+option go_package = "github.com/Arkhe-Network/UN-v2.0/api/proto;controlplane";
+
+import "google/protobuf/timestamp.proto";
+
+// Service for controlling and monitoring the geogovernance platform.
+service ControlPlane {
+    // Executes a task in a hardened sandbox.
+    rpc ExecuteSandbox(ExecuteSandboxRequest) returns (ExecuteSandboxResponse);
+
+    // Manages multi-level jurisdiction and session management.
+    rpc ManageSession(ManageSessionRequest) returns (ManageSessionResponse);
+
+    // Records an event into the verifiable ledger.
+    rpc LogEvent(LogEventRequest) returns (LogEventResponse);
+}
+
+message ExecuteSandboxRequest {
+    string task_id = 1;
+    bytes payload = 2;
+    string jurisdiction_id = 3;
+    GPSCoordinates location = 4;
+}
+
+message ExecuteSandboxResponse {
+    string execution_id = 1;
+    string status = 2;
+    bytes output = 3;
+    google.protobuf.Timestamp completed_at = 4;
+}
+
+message GPSCoordinates {
+    double latitude = 1;
+    double longitude = 2;
+    double altitude = 3;
+}
+
+message ManageSessionRequest {
+    string session_id = 1;
+    string action = 2; // e.g., "START", "STOP", "UPDATE_JURISDICTION"
+}
+
+message ManageSessionResponse {
+    string session_id = 1;
+    bool success = 2;
+}
+
+message LogEventRequest {
+    string event_type = 1;
+    bytes event_data = 2;
+    google.protobuf.Timestamp timestamp = 3;
+}
+
+message LogEventResponse {
+    string ledger_hash = 1;
+    int64 sequence_number = 2;
+}

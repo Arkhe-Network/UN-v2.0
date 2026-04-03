@@ -1,0 +1,13 @@
+# Binaries
+bin/
+control-plane
+*.exe
+*.o
+*.so
+
+# Environment
+.env
+.env.local
+
+# Go workspace
+go.work

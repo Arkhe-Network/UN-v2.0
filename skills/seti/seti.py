@@ -25,21 +25,6 @@ class SETILambda2Analyzer:
         else:
             return "PRIORITY_CANDIDATE"
 
-    def detect_vortex_intelligence(self, vortex_density: float, non_random_annihilation: bool) -> dict:
-        """
-        SETI-λ₂ v2.0: Topological vortex analysis.
-        """
-        T_BKT = 0.679  # Limiar para d=2
-
-        if vortex_density > T_BKT and non_random_annihilation:
-            return {
-                'classification': 'ARTEFATO_TOPOLOGICO_PRIORITARIO',
-                'vortex_density': vortex_density,
-                'confidence': min(1.0, (vortex_density - T_BKT) / 0.321)
-            }
-
-        return {'classification': 'THERMAL_NOISE', 'vortex_density': vortex_density}
-
 def main():
     if len(sys.argv) < 3:
         print(json.dumps({"error": "Missing inputs."}))
@@ -60,18 +45,10 @@ def main():
     lambda2 = analyzer.compute_coherence(signal_data)
     classification = analyzer.classify_target(lambda2, d)
 
-    vortex_data = config.get("vortex_analysis", {})
-    topological_report = {}
-    if vortex_data:
-        vortex_density = vortex_data.get("density", 0.0)
-        non_random = vortex_data.get("non_random_annihilation", False)
-        topological_report = analyzer.detect_vortex_intelligence(vortex_density, non_random)
-
     print(json.dumps({
         "lambda2": lambda2,
         "effective_dimension": d,
         "classification": classification,
-        "topological_analysis": topological_report,
         "skill": "seti"
     }))
 

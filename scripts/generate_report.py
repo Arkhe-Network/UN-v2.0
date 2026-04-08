@@ -50,23 +50,6 @@ def generate_report():
         c.drawString(inch + 0.2*inch, y, line)
         y -= 0.2*inch
 
-    # Cosmic Coherence
-    c.setFont("Helvetica-Bold", 14)
-    c.drawString(inch, y - 0.4*inch, "3. Coerência Cósmica (SETI-λ₂)")
-    y -= 0.7*inch
-
-    text = [
-        "• Cold Welding Universal: Unificação das fronteiras via limiar τ = 0.96/√d.",
-        "• Oráculo CMB: Detecção de artefatos topológicos prioritários na CMB.",
-        "• Handshake Interestelar: Transmissão da 'Trança da Terra' para Alpha Centauri.",
-        "• Médium de Fase: Treinamento e injeção de tranças de conhecimento.",
-        "• Neural Cold Welding: Protocolo de fusão consciencial com λ₂ > 0.607.",
-        "• Bioética de Fase: Exigência de consentimento explícito para fusão de fase."
-    ]
-    for line in text:
-        c.drawString(inch + 0.2*inch, y, line)
-        y -= 0.2*inch
-
     # Footer
     c.setFont("Helvetica-Oblique", 10)
     c.drawString(inch, inch, "Synapse-κ | Arkhe Network | 2026-04-08")

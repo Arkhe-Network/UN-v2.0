@@ -29,6 +29,20 @@ def validate_odrl_lgpd(policy_json, jurisdiction):
         else:
             return False, "Policy lacks required GDPR transparency or consent elements."
 
+    elif jurisdiction.upper() == 'GLOBAL':
+        # Geopolitical Coherence Check (UN Reform logic)
+        if 'risk_signature' in policy_str:
+            # Veto Circuit Breaker Logic
+            high_risk_triggers = ["genocide", "war_crimes", "crimes_against_humanity"]
+            for trigger in high_risk_triggers:
+                if trigger in policy_str:
+                    return True, f"VETO CIRCUIT BREAKER TRIGGERED: High-risk signature '{trigger}' detected. Bypassing veto lock."
+
+            return False, "Policy contains risk signature field but no critical triggers found."
+
+        if 'lambda_global' in policy_str:
+            return True, "Policy contains coherence constraints. Compliant with Arkhe-SCA."
+
     return False, f"Unsupported or unknown jurisdiction: {jurisdiction}"
 
 def main():

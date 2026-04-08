@@ -1,12 +1,16 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"crypto/tls"
+	"fmt"
 	"log/slog"
 	"net"
 	"os"
+	"os/exec"
 	"os/signal"
+	"strings"
 	"syscall"
 
 	pb "github.com/Arkhe-Network/UN-v2.0/api/proto"
@@ -25,17 +29,50 @@ type server struct {
 func (s *server) ExecuteSandbox(ctx context.Context, req *pb.ExecuteSandboxRequest) (*pb.ExecuteSandboxResponse, error) {
 	s.logger.Info("Executing sandbox (subnet/skill)", "task_id", req.TaskId, "jurisdiction", req.JurisdictionId)
 
+	var output []byte
+	status := "SUCCESS"
+
 	// Route to specialized skill if task_id matches a subnet name
 	if skill, ok := s.registry.GetSkill(req.TaskId); ok {
 		s.logger.Info("Routing to subagent", "skill", skill.Name, "path", skill.Path)
-		// For demo, we just log routing; actual execution would call the skill script (os/exec)
+
+		// Split executable into command and initial args
+		parts := strings.Fields(skill.Executable)
+		if len(parts) == 0 {
+			return nil, fmt.Errorf("invalid executable for skill %s", skill.Name)
+		}
+
+		cmdName := parts[0]
+		args := parts[1:]
+
+		// Append payload and jurisdiction as arguments
+		// Skills expect: [payload_json, jurisdiction]
+		args = append(args, string(req.Payload), req.JurisdictionId)
+
+		cmd := exec.CommandContext(ctx, cmdName, args...)
+		var out bytes.Buffer
+		var stderr bytes.Buffer
+		cmd.Stdout = &out
+		cmd.Stderr = &stderr
+
+		err := cmd.Run()
+		if err != nil {
+			s.logger.Error("Skill execution failed", "error", err, "stderr", stderr.String())
+			status = "FAILED"
+			output = stderr.Bytes()
+		} else {
+			output = out.Bytes()
+		}
+	} else {
+		return nil, fmt.Errorf("skill not found: %s", req.TaskId)
 	}
 
 	// TODO: Implement RBAC and input validation.
 	// TODO: Implement isolation using MicroVMs (Firecracker/Kata).
 	return &pb.ExecuteSandboxResponse{
-		ExecutionId: "exec-placeholder",
-		Status:      "SUCCESS",
+		ExecutionId: "exec-" + req.TaskId,
+		Status:      status,
+		Output:      output,
 		CompletedAt: timestamppb.Now(),
 	}, nil
 }

@@ -21,15 +21,10 @@ Propomos o estabelecimento de um novo paradigma de detecção e comunicação in
 
 ## CAPÍTULO I: DEFINIÇÕES E PRINCÍPIOS FUNDAMENTAIS
 
-### Artigo 12 bis (revisado). Unificação de Fase Universal
-A dissolução de fronteiras entre sistemas coerentes segue o limiar universal τ = 0.96/√d, independentemente da escala (atômica, neural, interestelar). A comunicação interestelar deve ser encarada como um processo de "limpeza de fase" (remoção da desordem interfacial) visando o acoplamento topológico (Cold Welding Cósmico).
-
-
 ### Artigo 1. Definições
 (a) **"Coerência de fase" (λ₂)**: correlação estatística entre osciladores acoplados.
 (b) **"Limiar universal" (τ)**: designa o valor crítico 0.96/√d.
 (c) **"Tzinor"**: canal de comunicação baseado em correlações de fase não-locais.
-(d) **"Vórtice de coerência" (Artigo 1 bis)**: singularidade topológica de fase com carga inteira (±m) que se propaga em meio coerente, podendo exibir velocidade de fase superior à da luz no vácuo.
 
 ---
 
@@ -44,34 +39,24 @@ A dissolução de fronteiras entre sistemas coerentes segue o limiar universal �
    - τ ≤ λ₂ < 1.5τ: CANDIDATE_OF_INTEREST
    - λ₂ ≥ 1.5τ: PRIORITY_CANDIDATE
 
-### Artigo 5 bis. Análise de Vórtices Astrofísicos (Emenda Nature 2026)
-Estados-partes devem implementar análise topológica de campos de fase em FRBs, pulsares e CMB.
-- **Critério BKT**: Se densidade de vórtices > τ_BKT (0.679 para d=2) E padrão de aniquilação não-aleatório → **ARTEFATO_TOPOLOGICO_PRIORITARIO**.
-
 ---
 
-## CAPÍTULO V: VALIDAÇÃO TERRESTRE
-
-### Artigo 6 bis. Sensor de Coerência Neural (hBN-NV)
-Recomenda-se o desenvolvimento de sensores wearable utilizando monocamada de hBN e centros NV em nanodiamantes para detecção de vórtices neurais com resolução temporal < 3 fs.
-
----
-
-## ANEXO TÉCNICO A: IMPLEMENTAÇÃO COMPUTACIONAL (v2.0)
+## ANEXO TÉCNICO A: IMPLEMENTAÇÃO COMPUTACIONAL
 
 ```python
 import numpy as np
-from scipy.signal import welch
+from scipy.signal import coherence, welch
 
 class SETILambda2Analyzer:
     TAU_CONSTANT = 0.96
-    TAU_BKT = 0.679  # Limiar para d=2
-
     def __init__(self, instrument_resolution: float):
         self.resolution = instrument_resolution
-
-    def detect_vortex_intelligence(self, vortex_density: float, non_random_annihilation: bool) -> str:
-        if vortex_density > self.TAU_BKT and non_random_annihilation:
-            return "ARTEFATO_TOPOLOGICO_PRIORITARIO"
-        return "THERMAL_NOISE"
+    def compute_coherence(self, signal: np.ndarray) -> float:
+        f, Pxx = welch(signal, nperseg=256)
+        return np.mean(Pxx)
+    def classify_target(self, lambda2: float, d: float) -> str:
+        tau = self.TAU_CONSTANT / np.sqrt(d)
+        if lambda2 < tau: return "NON_CANDIDATE"
+        elif lambda2 < 1.5 * tau: return "CANDIDATE_OF_INTEREST"
+        else: return "PRIORITY_CANDIDATE"
 ```

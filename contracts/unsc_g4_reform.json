@@ -1,0 +1,35 @@
+{
+  "@context": "http://www.w3.org/ns/odrl.jsonld",
+  "@type": "Policy",
+  "uid": "arkhe:policy:unsc:g4_reform",
+  "permission": [{
+    "target": "arkhe:resource:unsc:seats",
+    "action": "expand",
+    "constraint": [{
+      "leftOperand": "count",
+      "operator": "eq",
+      "rightOperand": 25
+    }]
+  }],
+  "prohibition": [{
+    "target": "arkhe:resource:unsc:veto",
+    "action": "use",
+    "assigner": "arkhe:agent:new_permanent_members",
+    "constraint": [{
+      "leftOperand": "trial_period",
+      "operator": "lt",
+      "rightOperand": "P5Y"
+    }]
+  }],
+  "duty": [{
+    "action": "maintain_coherence",
+    "constraint": [{
+      "leftOperand": "lambda_global",
+      "operator": "gt",
+      "rightOperand": 0.85
+    }]
+  }],
+  "jurisdiction": "GLOBAL",
+  "purpose": "UN Security Council Reform",
+  "transparency": "High"
+}

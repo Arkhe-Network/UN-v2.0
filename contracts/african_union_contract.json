@@ -1,0 +1,28 @@
+{
+  "@context": "http://www.w3.org/ns/odrl.jsonld",
+  "@type": "Contract",
+  "uid": "arkhe:contract:african_union:veto_demand",
+  "party": [{
+    "function": "assigner",
+    "uid": "arkhe:agent:african_union"
+  }],
+  "permission": [{
+    "target": "arkhe:resource:unsc:permanent_seat",
+    "action": "occupy",
+    "constraint": [{
+      "leftOperand": "count",
+      "operator": "eq",
+      "rightOperand": 2
+    }]
+  }],
+  "obligation": [{
+    "action": "veto_bypass",
+    "constraint": [{
+      "leftOperand": "risk_signature",
+      "operator": "in",
+      "rightOperand": ["genocide", "war_crimes", "crimes_against_humanity"]
+    }]
+  }],
+  "consent": "Implicit by Membership",
+  "purpose": "Regional Coherence Restoration"
+}

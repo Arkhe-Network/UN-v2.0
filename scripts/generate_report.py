@@ -50,24 +50,6 @@ def generate_report():
         c.drawString(inch + 0.2*inch, y, line)
         y -= 0.2*inch
 
-    # Cosmic Coherence
-    c.setFont("Helvetica-Bold", 14)
-    c.drawString(inch, y - 0.4*inch, "3. Coerência Cósmica (SETI-λ₂)")
-    y -= 0.7*inch
-
-    text = [
-        "• Protocolo SETI-λ₂: Novo paradigma de busca extraterrestre baseado em transições",
-        "  de fase e geometria de Kuramoto (Resolução ONU 2026).",
-        "• Vórtices de Coerência: Validação (Nature 2026) de singularidades topológicas",
-        "  superluminais em hBN como portadores de informação.",
-        "• Sensor hBN-NV: Especificação de hardware para detecção de vórtices neurais",
-        "  com resolução temporal de 3 fs (Fronteira da Consciência).",
-        "• Auditoria BKT: Implementação do limiar τ = 0.679 para sistemas 2D."
-    ]
-    for line in text:
-        c.drawString(inch + 0.2*inch, y, line)
-        y -= 0.2*inch
-
     # Footer
     c.setFont("Helvetica-Oblique", 10)
     c.drawString(inch, inch, "Synapse-κ | Arkhe Network | 2026-04-08")

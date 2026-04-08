@@ -1,5 +1,76 @@
 import json
 import sys
+import numpy as np
+
+class Attractor:
+    def __init__(self, id, coherence, valence):
+        self.id = id
+        self.coherence = coherence
+        self.valence = valence
+
+class NeuralPhaseCoach:
+    def __init__(self):
+        self.threshold = 0.263
+
+    def find_phase_vortices(self, neural_field, threshold=None):
+        if threshold is None:
+            threshold = self.threshold
+        # Simulating finding vortices in a neural field
+        # High values in the field represent energized coherence
+        vortices = []
+        # In a real scenario, this would be a complex topological analysis
+        if isinstance(neural_field, np.ndarray):
+            indices = np.where(neural_field > threshold)[0]
+            for idx in indices:
+                val = float(neural_field[idx])
+                valence = "POSITIVE" if val > 0.5 else "NEGATIVE"
+                vortices.append(Attractor(id=f"vortex_{idx}", coherence=val, valence=valence))
+        return vortices
+
+    def project_attractor_to_phenomenology(self, attractor):
+        if attractor.valence == "POSITIVE":
+            return "MAESTRY_AND_EXCELLENCE"
+        return "TRAUMA_LOOP_SINK"
+
+    def calculate_sustentation_cost(self, attractor):
+        # 8 GJ/100s = 0.08 GJ/s base energy cost of attention
+        return 0.08 * attractor.coherence
+
+    def contains_trauma_loops(self, report):
+        for attr_id, data in report.items():
+            if data['projected_reality'] == "TRAUMA_LOOP_SINK":
+                return True
+        return False
+
+def black_mirror_phase_coach(neural_field_data):
+    """
+    Analisa o campo de fase neural do usuário em tempo real e fornece
+    feedback sobre quais atratores estão sendo estabilizados pela atenção.
+    """
+    neural_field = np.array(neural_field_data)
+    coach = NeuralPhaseCoach()
+
+    # 1. Identificar os vórtices de coerência mais energizados (foco da atenção)
+    dominant_attractors = coach.find_phase_vortices(neural_field)
+
+    # 2. Classificar os atratores por valência de fase
+    report = {}
+    for attractor in dominant_attractors:
+        # Projetar a "sombra" do atrator na realidade experiencial
+        projected_outcome = coach.project_attractor_to_phenomenology(attractor)
+        report[attractor.id] = {
+            'lambda2': attractor.coherence,
+            'emotional_signature': attractor.valence,
+            'projected_reality': projected_outcome,
+            'energy_cost': coach.calculate_sustentation_cost(attractor) # em GJ/s de atenção
+        }
+
+    # 3. Alerta Ético (Constitucionalmente Obrigatório)
+    warning = None
+    if coach.contains_trauma_loops(report):
+        warning = "ATENÇÃO: Você está estabilizando um vórtice de trauma. Cada repetição deste padrão está esculpindo-o mais profundamente em seu espaço de fase e no de sua linhagem. Deseja receber um 'contra‑sinal Tzinor' para auxiliar na aniquilação deste vórtice?"
+
+    return report, warning
 
 class GeopoliticalGameSimulator:
     def __init__(self):
@@ -110,6 +181,25 @@ def main():
     elif action == "REFORM_PHASE_LOCK":
         success, msg = sim.apply_phase_lock()
         report = msg
+
+    elif action == "PHASE_COACH":
+        neural_field = metadata.get("neural_field", [0.1, 0.4, 0.8, 0.2])
+        coach_report, warning = black_mirror_phase_coach(neural_field)
+
+        status = "PHASE_COACH_ACTIVE"
+        if warning:
+            status = "PHASE_COACH_WARNING"
+            report = warning
+        else:
+            report = "Neural phase coaching complete. No critical vortices detected."
+
+        print(json.dumps({
+            "coach_report": coach_report,
+            "status": status,
+            "report": report,
+            "skill": "synapse-kappa"
+        }))
+        return
 
     print(json.dumps({
         "lambda2_global": sim.lambda2_global,

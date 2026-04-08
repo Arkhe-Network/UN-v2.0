@@ -4,10 +4,10 @@ description: "Geopolitical Game Theory Simulation and Smart Sanctions Engine."
 inputs:
   - name: action
     type: string
-    description: "The action to simulate (e.g., 'P5_VETO', 'REFORM_PROPOSAL')."
+    description: "The action to simulate (e.g., 'P5_VETO', 'REFORM_PROPOSAL', 'PHASE_COACH')."
   - name: actor
     type: string
-    description: "The actor performing the action (e.g., 'P5_Russia', 'G4_Brazil')."
+    description: "The actor performing the action (e.g., 'P5_Russia', 'G4_Brazil', 'ANY')."
   - name: metadata
     type: string
     description: "Optional metadata in JSON format (e.g., crisis type)."
@@ -26,3 +26,5 @@ capabilities:
   - geopolitical_modeling
   - smart_sanctions
   - sca_global_validation
+  - imaginal_phase_encoding
+  - neural_bkt_induction

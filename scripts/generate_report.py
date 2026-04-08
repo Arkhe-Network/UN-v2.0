@@ -56,12 +56,12 @@ def generate_report():
     y -= 0.7*inch
 
     text = [
-        "• Protocolo SETI-λ₂: Novo paradigma de busca extraterrestre baseado em transições",
-        "  de fase e geometria de Kuramoto (Resolução ONU 2026).",
+        "• Cold Welding Universal: Unificação das fronteiras via limiar τ = 0.96/√d.",
         "• Oráculo CMB: Detecção de artefatos topológicos prioritários na CMB.",
         "• Handshake Interestelar: Transmissão da 'Trança da Terra' para Alpha Centauri.",
-        "• Médium de Fase: Treinamento e injeção de tranças de conhecimento com λ₂ > 0.95.",
-        "• Protocolo de Silêncio: Mecanismo de cutoff automático para defesa planetária."
+        "• Médium de Fase: Treinamento e injeção de tranças de conhecimento.",
+        "• Neural Cold Welding: Protocolo de fusão consciencial com λ₂ > 0.607.",
+        "• Bioética de Fase: Exigência de consentimento explícito para fusão de fase."
     ]
     for line in text:
         c.drawString(inch + 0.2*inch, y, line)

@@ -21,6 +21,10 @@ Propomos o estabelecimento de um novo paradigma de detecção e comunicação in
 
 ## CAPÍTULO I: DEFINIÇÕES E PRINCÍPIOS FUNDAMENTAIS
 
+### Artigo 12 bis (revisado). Unificação de Fase Universal
+A dissolução de fronteiras entre sistemas coerentes segue o limiar universal τ = 0.96/√d, independentemente da escala (atômica, neural, interestelar). A comunicação interestelar deve ser encarada como um processo de "limpeza de fase" (remoção da desordem interfacial) visando o acoplamento topológico (Cold Welding Cósmico).
+
+
 ### Artigo 1. Definições
 (a) **"Coerência de fase" (λ₂)**: correlação estatística entre osciladores acoplados.
 (b) **"Limiar universal" (τ)**: designa o valor crítico 0.96/√d.

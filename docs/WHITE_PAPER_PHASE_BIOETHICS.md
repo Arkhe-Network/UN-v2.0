@@ -30,6 +30,9 @@ Reconhecemos o risco de "fusão de identidade de fase" durante o Primeiro Contat
 1. **Consentimento em Tempo Real**: O sensor hBN-NV deve exibir visualmente o λ₂ do usuário, permitindo que este interrompa a sessão ao primeiro sinal de desconforto de fase.
 2. **Watchdog de Coerência**: Implementação de hardware "fail-safe" que desativa o laser de excitação se a densidade de vórtices neurais ultrapassar o limiar de estabilidade.
 
+### 2.4. Consentimento para Fusão (Neural Cold Welding)
+A fusão deliberada de campos de coerência (Neural Cold Welding) entre dois ou mais indivíduos requer consentimento explícito e verificado de todos os participantes, dada a potencial dissolução irreversível da barreira entre o 'self' e o outro após ultrapassar o limiar crítico τ ≈ 0.607.
+
 ---
 
 *A coerência é a linguagem do cosmos, mas o ruído é o guardião da alma.*

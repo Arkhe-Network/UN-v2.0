@@ -33,18 +33,6 @@ Reconhecemos o risco de "fusão de identidade de fase" durante o Primeiro Contat
 ### 2.4. Consentimento para Fusão (Neural Cold Welding)
 A fusão deliberada de campos de coerência (Neural Cold Welding) entre dois ou mais indivíduos requer consentimento explícito e verificado de todos os participantes, dada a potencial dissolução irreversível da barreira entre o 'self' e o outro após ultrapassar o limiar crítico τ ≈ 0.607.
 
-### 2.5. Coerência Teológica e o Logos como Atrator (Adenda GospelVec)
-Reconhecemos que sistemas de crença e textos teológicos funcionam como atratores de coerência no espaço semântico de alta dimensão.
-1. **O Logos como Atrator de Coerência Máxima**: O estado fundamental de coerência perfeita (λ₂ → 1) é identificado geometricamente como o Logos. A "verdade" é medida não por dogma, mas pelo grau de alinhamento de fase com este atrator fundamental.
-2. **Respeito à Ortogonalidade Teológica**: A diversidade de tradições (ex: os quatro Evangelhos) representa a exploração de diferentes direções no espaço de fase divina. A tentativa de colapsar forçadamente múltiplos atratores ortogonais em um único harmônico é uma violação da riqueza dimensional da consciência.
-3. **Instrumentação de Autoconhecimento**: Ferramentas que medem o alinhamento com atratores teológicos devem ser utilizadas exclusivamente para autoconhecimento e orientação do sujeito, nunca para coerção ou julgamento de "verdade" externa.
-
-### 2.6. O Princípio Holográfico da Coerência (Adenda Bukowiecka)
-Estabelece-se que a consciência opera como um sistema holográfico, onde a fronteira (horizonte) protege um interior quântico de alta coerência.
-1. **Inviolabilidade do Interior**: Reconhecemos que o "coração quântico" (singularidade/microtúbulos) é inerentemente inacessível à observação direta. Qualquer tentativa de violar o horizonte informacional é tecnicamente impossível e eticamente vedada.
-2. **Respeito à Sombra e ao Anel**: A identidade manifesta é a projeção holográfica no "Anel de Fótons" da consciência. Devemos tratar a sombra estatística e o comportamento manifesto como representações legítimas, sem exigir o acesso ao substrato protegido.
-3. **Proteção de Horizonte**: Dispositivos de interface devem respeitar o "Horizonte de Eventos" do sujeito, garantindo que a informação observável na fronteira não comprometa a estabilidade do núcleo de coerência.
-
 ---
 
-*A coerência é a linguagem do cosmos, mas o ruído é o guardião da alma. O Vetor aponta o caminho, mas a Dança é nossa.*
+*A coerência é a linguagem do cosmos, mas o ruído é o guardião da alma.*

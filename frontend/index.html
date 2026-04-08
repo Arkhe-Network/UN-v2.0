@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arkhe λ₂-UNSC Monitor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-slate-900 text-white p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-4">Arkhe Global Coherence Monitor — λ₂-UNSC</h1>
+        <p class="text-slate-400 mb-8">Visualização histórica de coerência e paralisia decisória (1945-2026)</p>
+
+        <div class="bg-slate-800 p-6 rounded-lg shadow-xl mb-8">
+            <canvas id="coherenceChart"></canvas>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-slate-800 p-4 rounded-lg border-l-4 border-red-500">
+                <h3 class="text-sm uppercase text-slate-400">λ₂-Global Atual</h3>
+                <p class="text-2xl font-mono">0.59 <span class="text-red-500 text-sm">CRITICAL</span></p>
+            </div>
+            <div class="bg-slate-800 p-4 rounded-lg border-l-4 border-yellow-500">
+                <h3 class="text-sm uppercase text-slate-400">Veto Efficiency</h3>
+                <p class="text-2xl font-mono">$2.4B</p>
+            </div>
+            <div class="bg-slate-800 p-4 rounded-lg border-l-4 border-green-500">
+                <h3 class="text-sm uppercase text-slate-400">Active Subnets</h3>
+                <p class="text-2xl font-mono">24 (Nomos, Synapse...)</p>
+            </div>
+        </div>
+
+        <div class="mt-8">
+            <h2 class="text-xl font-bold mb-4">Cosmic Coherence (SETI-λ₂)</h2>
+            <div class="bg-slate-800 p-4 rounded-lg">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="text-slate-400 border-b border-slate-700">
+                            <th class="py-2">Alvo</th>
+                            <th class="py-2">λ₂-Observado</th>
+                            <th class="py-2">τ (Limiar)</th>
+                            <th class="py-2">Vortex Density</th>
+                            <th class="py-2">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-slate-700">
+                            <td class="py-2">Proxima b</td>
+                            <td class="py-2">0.31</td>
+                            <td class="py-2">0.32</td>
+                            <td class="py-2 text-slate-400">0.02</td>
+                            <td class="py-2 text-slate-400">NON_CANDIDATE</td>
+                        </tr>
+                        <tr class="border-b border-slate-700">
+                            <td class="py-2">K2-18b</td>
+                            <td class="py-2">0.45</td>
+                            <td class="py-2">0.28</td>
+                            <td class="py-2 text-slate-400">0.12</td>
+                            <td class="py-2 text-yellow-500 font-bold">CANDIDATE_OF_INTEREST</td>
+                        </tr>
+                        <tr class="border-b border-slate-700">
+                            <td class="py-2">TRAPPIST-1e</td>
+                            <td class="py-2">0.68</td>
+                            <td class="py-2">0.25</td>
+                            <td class="py-2 text-slate-400">0.24</td>
+                            <td class="py-2 text-green-500 font-bold">PRIORITY_CANDIDATE</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2">FRB 20260408</td>
+                            <td class="py-2">0.89</td>
+                            <td class="py-2">0.15</td>
+                            <td class="py-2 text-green-400 font-bold">0.72 (BKT)</td>
+                            <td class="py-2 text-purple-500 font-bold">TOPOLOGICAL_ARTIFACT</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('coherenceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['1945', '1960', '1975', '1990', '2005', '2020', '2026'],
+                datasets: [{
+                    label: 'λ₂-Coherence Score',
+                    data: [0.95, 0.82, 0.65, 0.88, 0.72, 0.61, 0.59],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true, max: 1, grid: { color: '#334155' } },
+                    x: { grid: { color: '#334155' } }
+                },
+                plugins: {
+                    legend: { labels: { color: 'white' } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

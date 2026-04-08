@@ -4,4 +4,3 @@ npm warn exec The following package was not found and will be installed: vite@8.
 
   ➜  Local:   http://localhost:3001/
   ➜  Network: use --host to expose
-4:58:41 PM [vite] (client) page reload index.html

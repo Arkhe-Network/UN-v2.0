@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package arkhe.brasilfinance.v1;
+
+import "arkhe/common/v1/header.proto";
+
+service BrasilFinanceService {
+  rpc InitiatePix(InitiatePixRequest) returns (InitiatePixResponse);
+  rpc GenerateQR(GenerateQRRequest) returns (GenerateQRResponse);
+  rpc QueryPixStatus(QueryPixStatusRequest) returns (QueryPixStatusResponse);
+  rpc ComplianceCheck(ComplianceCheckRequest) returns (ComplianceCheckResponse);
+}
+
+message InitiatePixRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  PixPayment payment = 2;
+  bool use_zk_privacy = 3;
+  bool wait_confirmation = 4;
+}
+
+message InitiatePixResponse {
+  string tx_id = 1;
+  string status = 2;
+  string end_to_end_id = 3;
+  string qr_code_emvco = 4;
+  bytes zk_proof_hash = 5;
+  string temporal_event_id = 6;
+}
+
+message GenerateQRRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  float amount_brl = 2;
+  string description = 3;
+  string merchant_name = 4;
+  string merchant_city = 5;
+  string pix_key = 6;
+}
+
+message GenerateQRResponse {
+  string qr_code_emvco = 1;
+  string qr_image_b64 = 2;
+  string tx_id = 3;
+}
+
+message QueryPixStatusRequest {
+  string tx_id = 1;
+  string end_to_end_id = 2;
+}
+
+message QueryPixStatusResponse {
+  string status = 1;
+  int64 settled_at_ns = 2;
+  string rejection_reason = 3;
+}
+
+message ComplianceCheckRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  string tx_id = 2;
+  string check_type = 3;
+  bytes enriched_data = 4;
+}
+
+message ComplianceCheckResponse {
+  bool cleared = 1;
+  float risk_score = 2;
+  repeated string alerts = 3;
+  string engine_used = 4;
+}
+
+message PixPayment {
+  string tx_id = 1;
+  string pix_key = 2;
+  float amount_brl = 3;
+  string description = 4;
+  string debtor_cpf_cnpj = 5;
+  string creditor_name = 6;
+}

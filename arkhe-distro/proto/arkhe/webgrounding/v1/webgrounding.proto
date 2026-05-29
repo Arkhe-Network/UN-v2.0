@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package arkhe.webgrounding.v1;
+
+import "arkhe/common/v1/header.proto";
+
+service WebGroundingService {
+  rpc Search(SearchRequest) returns (SearchResponse);
+  rpc ExtractFacts(ExtractFactsRequest) returns (ExtractFactsResponse);
+  rpc FactCheck(FactCheckRequest) returns (FactCheckResponse);
+}
+
+message SearchRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  string query = 2;
+  repeated string domains = 3;
+  string date_range = 4;
+  int32 max_results = 5;
+  bool auto_fact_check = 6;
+}
+
+message SearchResponse {
+  string search_id = 1;
+  repeated SearchResult results = 2;
+  float query_latency_ms = 3;
+}
+
+message ExtractFactsRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  string url = 2;
+  bool use_llm = 3;
+}
+
+message ExtractFactsResponse {
+  string extraction_id = 1;
+  repeated ExtractedFact facts = 2;
+  bytes content_hash = 3;
+}
+
+message FactCheckRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  string claim = 2;
+  repeated string preferred_sources = 3;
+  int32 max_sources = 4;
+}
+
+message FactCheckResponse {
+  string check_id = 1;
+  string verdict = 2;
+  float confidence = 3;
+  repeated Evidence evidence = 4;
+  string reasoning = 5;
+}
+
+message SearchResult {
+  string result_id = 1;
+  string title = 2;
+  string url = 3;
+  string snippet = 4;
+  float engine_score = 5;
+  float credibility_score = 6;
+  repeated ExtractedFact facts = 7;
+}
+
+message ExtractedFact {
+  string fact = 1;
+}
+
+message Evidence {
+  string source_url = 1;
+  string supporting_text = 2;
+  string evidence_type = 3;
+  float source_credibility = 4;
+}

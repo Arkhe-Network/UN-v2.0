@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package arkhe.temporalchain.v1;
+
+import "arkhe/common/v1/header.proto";
+
+service TemporalChainService {
+  rpc CommitEvent(CommitEventRequest) returns (CommitEventResponse);
+  rpc VerifyAnchor(VerifyAnchorRequest) returns (VerifyAnchorResponse);
+  rpc StreamEvents(StreamEventsRequest) returns (stream Event);
+  rpc QueryEvents(QueryEventsRequest) returns (QueryEventsResponse);
+}
+
+message CommitEventRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  EventPayload payload = 2;
+  bool wait_for_anchor = 3;
+}
+
+message CommitEventResponse {
+  string event_id = 1;
+  bytes receipt_hash = 2;
+  string l2_tx_hash = 3;
+  arkhe.common.v1.ArkheSeal seal = 4;
+  string status = 5;
+}
+
+message VerifyAnchorRequest {
+  string event_id = 1;
+  bytes merkle_proof = 2;
+}
+
+message VerifyAnchorResponse {
+  bool valid = 1;
+  string l1_block_number = 2;
+  string l1_tx_hash = 3;
+  bytes root_hash = 4;
+}
+
+message StreamEventsRequest {
+  string filter = 1;
+  int64 from_timestamp_ns = 2;
+  bool include_seals = 3;
+}
+
+message QueryEventsRequest {
+  repeated string substrate_ids = 1;
+  string event_type = 2;
+  int64 from_ns = 3;
+  int64 to_ns = 4;
+  int32 limit = 5;
+  string cursor = 6;
+}
+
+message QueryEventsResponse {
+  repeated Event events = 1;
+  string next_cursor = 2;
+  int32 total_count = 3;
+}
+
+message EventPayload {
+  string event_type = 1;
+  bytes serialized_data = 2;
+  string substrate_id = 3;
+  string parent_event_id = 4;
+}
+
+message Event {
+  string event_id = 1;
+  arkhe.common.v1.ArkheHeader header = 2;
+  EventPayload payload = 3;
+  arkhe.common.v1.ArkheSeal seal = 4;
+  string status = 5;
+}

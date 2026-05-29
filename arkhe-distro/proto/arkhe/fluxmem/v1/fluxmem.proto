@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package arkhe.fluxmem.v1;
+
+import "arkhe/common/v1/header.proto";
+
+service FluxMemService {
+  rpc WriteShard(WriteShardRequest) returns (WriteShardResponse);
+  rpc QueryGraph(QueryGraphRequest) returns (QueryGraphResponse);
+  rpc Consolidate(ConsolidateRequest) returns (ConsolidateResponse);
+}
+
+message WriteShardRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  MemoryNode node = 2;
+  repeated RelationEdge edges = 3;
+  bool trigger_consolidation = 4;
+}
+
+message WriteShardResponse {
+  string node_id = 1;
+  string temporal_event_id = 2;
+  int32 edges_created = 3;
+}
+
+message QueryGraphRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  bytes embedding_query = 2;
+  string text_query = 3;
+  string node_id_query = 4;
+  string node_type_filter = 5;
+  int32 depth = 6;
+  int32 limit = 7;
+  bool include_provenance = 8;
+}
+
+message QueryGraphResponse {
+  repeated MemoryNode nodes = 1;
+  repeated RelationEdge edges = 2;
+  float query_latency_ms = 3;
+}
+
+message ConsolidateRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  string scope = 2;
+  string target_node_id = 3;
+  string strategy = 4;
+}
+
+message ConsolidateResponse {
+  int32 nodes_merged = 1;
+  int32 nodes_forgotten = 2;
+  int32 nodes_generalized = 3;
+  string report_id = 4;
+}
+
+message MemoryNode {
+  string node_id = 1;
+  string node_type = 2;
+  bytes embedding = 3;
+  bytes payload = 4;
+  repeated string tags = 5;
+  int64 created_at_ns = 6;
+  int64 last_accessed_ns = 7;
+  int32 access_count = 8;
+  float consolidation_score = 9;
+}
+
+message RelationEdge {
+  string edge_id = 1;
+  string from_node = 2;
+  string to_node = 3;
+  string relation_type = 4;
+  float weight = 5;
+}

@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package arkhe.mcpgateway.v1;
+
+import "arkhe/common/v1/header.proto";
+
+service MCPGatewayService {
+  rpc ListTools(ListToolsRequest) returns (ListToolsResponse);
+  rpc ExecuteTool(ExecuteToolRequest) returns (ExecuteToolResponse);
+  rpc StreamNotifications(StreamNotificationsRequest) returns (stream Notification);
+}
+
+message ListToolsRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  string model_id = 2;
+  bool filter_by_permissions = 3;
+}
+
+message ListToolsResponse {
+  repeated ToolSpec tools = 1;
+}
+
+message ExecuteToolRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  string tool_name = 2;
+  string model_id = 3;
+  bytes arguments_json = 4;
+  bool capture_epistemic = 5;
+}
+
+message ExecuteToolResponse {
+  string execution_id = 1;
+  bool success = 2;
+  bytes result_json = 3;
+  string error_message = 4;
+  bytes epistemic_state_hash = 5;
+  int32 execution_ms = 6;
+}
+
+message StreamNotificationsRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  string model_id = 2;
+  repeated string notification_types = 3;
+}
+
+message ToolSpec {
+  string tool_name = 1;
+  string description = 2;
+  string input_schema_json = 3;
+  string output_schema_json = 4;
+  repeated string required_permissions = 5;
+  string target_substrate = 6;
+  float avg_latency_ms = 7;
+}
+
+message Notification {
+  string notification_id = 1;
+  string notification_type = 2;
+  bytes payload_json = 3;
+  int64 timestamp_ns = 4;
+  string source_substrate = 5;
+}

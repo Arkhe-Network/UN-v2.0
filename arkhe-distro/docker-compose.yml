@@ -1,0 +1,4 @@
+version: '3.8'
+services:
+  temporalchain:
+    image: arkhe-os/temporalchain:v1.0.0

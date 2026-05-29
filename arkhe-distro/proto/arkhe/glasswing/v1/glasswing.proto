@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package arkhe.glasswing.v1;
+
+import "arkhe/common/v1/header.proto";
+
+service GlasswingService {
+  rpc ScanArtifact(ScanArtifactRequest) returns (ScanArtifactResponse);
+  rpc QueryFindings(QueryFindingsRequest) returns (QueryFindingsResponse);
+  rpc StreamAlerts(StreamAlertsRequest) returns (stream Alert);
+}
+
+message ScanArtifactRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  ArtifactSpec artifact = 2;
+  repeated string scanner_types = 3;
+  bool block_on_critical = 4;
+}
+
+message ScanArtifactResponse {
+  string scan_id = 1;
+  string status = 2;
+  repeated Finding findings = 3;
+  string temporal_event_id = 4;
+}
+
+message QueryFindingsRequest {
+  string artifact_id = 1;
+  string severity_filter = 2;
+  string status_filter = 3;
+  int64 since_ns = 4;
+  int32 limit = 5;
+}
+
+message QueryFindingsResponse {
+  repeated Finding findings = 1;
+  Summary summary = 2;
+}
+
+message StreamAlertsRequest {
+  string severity_threshold = 1;
+}
+
+message ArtifactSpec {
+  string artifact_id = 1;
+  string artifact_type = 2;
+  string source_uri = 3;
+  string commit_hash = 4;
+  bytes content_fingerprint = 5;
+}
+
+message Finding {
+  string finding_id = 1;
+  string scanner_type = 2;
+  string severity = 3;
+  string rule_id = 4;
+  string description = 5;
+  string file_path = 6;
+  int32 line_number = 7;
+  bytes remediation_hint = 8;
+  string cve_id = 9;
+}
+
+message Summary {
+  int32 critical_count = 1;
+  int32 high_count = 2;
+  int32 medium_count = 3;
+  int32 low_count = 4;
+  float mean_time_to_mitigate_hours = 5;
+}
+
+message Alert {
+  string alert = 1;
+}

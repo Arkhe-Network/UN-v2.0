@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package arkhe.agency.v1;
+
+import "arkhe/common/v1/header.proto";
+
+service AgencyService {
+  rpc Deliberate(DeliberateRequest) returns (DeliberateResponse);
+  rpc Dispatch(DispatchRequest) returns (DispatchResponse);
+  rpc ListPending(ListPendingRequest) returns (ListPendingResponse);
+  rpc Adjudicate(AdjudicateRequest) returns (AdjudicateResponse);
+}
+
+message DeliberateRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  Intention intention = 2;
+  bytes epistemic_state_hash = 3;
+  bool include_mythos = 4;
+}
+
+message DeliberateResponse {
+  string deliberation_id = 1;
+  Decision decision = 2;
+  repeated string reasoning_steps = 3;
+  bytes epistemic_state_hash = 4;
+}
+
+message DispatchRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  string deliberation_id = 2;
+  string adjudicator_id = 3;
+}
+
+message DispatchResponse {
+  string action_id = 1;
+  string status = 2;
+  string executor_ack = 3;
+}
+
+message ListPendingRequest {
+  string filter_substrate = 1;
+  int64 since_ns = 2;
+  int32 limit = 3;
+}
+
+message ListPendingResponse {
+  repeated PendingAction actions = 1;
+}
+
+message AdjudicateRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  string action_id = 2;
+  string adjudicator_id = 3;
+  bool approve = 4;
+  string justification = 5;
+}
+
+message AdjudicateResponse {
+  string action_id = 1;
+  string new_status = 2;
+  string temporal_event_id = 3;
+}
+
+message Intention {
+  string intention_id = 1;
+  string stated_goal = 2;
+  string action_type = 3;
+  string target_substrate = 4;
+  bytes parameters = 5;
+  float urgency = 6;
+  repeated string required_approvals = 7;
+}
+
+message Decision {
+  string verdict = 1;
+  float confidence = 2;
+  repeated string violations = 3;
+  string assigned_executor = 4;
+}
+
+message PendingAction {
+  string action_id = 1;
+  Intention intention = 2;
+  string deliberation_id = 3;
+  int64 pending_since_ns = 4;
+  repeated string missing_approvals = 5;
+}

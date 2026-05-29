@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package arkhe.hermeszk.v1;
+
+import "arkhe/common/v1/header.proto";
+
+service HermesZKService {
+  rpc GenerateProof(GenerateProofRequest) returns (GenerateProofResponse);
+  rpc VerifyProof(VerifyProofRequest) returns (VerifyProofResponse);
+  rpc ListCircuits(ListCircuitsRequest) returns (ListCircuitsResponse);
+}
+
+message GenerateProofRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  string circuit_id = 2;
+  map<string, bytes> private_inputs = 3;
+  map<string, bytes> public_inputs = 4;
+  bool encrypt_witness = 5;
+}
+
+message GenerateProofResponse {
+  bytes proof = 1;
+  bytes public_inputs = 2;
+  bytes vk = 3;
+  bytes proof_hash = 4;
+  int32 proving_time_ms = 5;
+  int32 proof_size_bytes = 6;
+}
+
+message VerifyProofRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  bytes proof = 2;
+  bytes public_inputs = 3;
+  bytes vk = 4;
+  bool verify_on_chain = 5;
+}
+
+message VerifyProofResponse {
+  bool valid = 1;
+  string on_chain_tx_hash = 2;
+  string error_message = 3;
+}
+
+message ListCircuitsRequest {
+  string curve_filter = 1;
+}
+
+message ListCircuitsResponse {
+  repeated CircuitSpec circuits = 1;
+}
+
+message CircuitSpec {
+  string circuit_id = 1;
+  string curve = 2;
+  int32 constraint_count = 3;
+  bytes vk_hash = 4;
+}

@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package arkhe.epistemic.v1;
+
+import "arkhe/common/v1/header.proto";
+
+service EpistemicCommitService {
+  rpc CommitState(CommitStateRequest) returns (CommitStateResponse);
+  rpc GetState(GetStateRequest) returns (EpistemicState);
+  rpc DiffStates(DiffStatesRequest) returns (DiffStatesResponse);
+}
+
+message CommitStateRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  EpistemicState state = 2;
+  bool anchor_on_chain = 3;
+}
+
+message CommitStateResponse {
+  bytes state_hash = 1;
+  string temporal_event_id = 2;
+  arkhe.common.v1.ArkheSeal seal = 3;
+}
+
+message GetStateRequest {
+  bytes state_hash = 1;
+}
+
+message DiffStatesRequest {
+  bytes state_hash_a = 1;
+  bytes state_hash_b = 2;
+  bool semantic_only = 3;
+}
+
+message DiffStatesResponse {
+  repeated IntentDelta intent_deltas = 1;
+  repeated MemoryDelta memory_deltas = 2;
+  float drift_score = 3;
+}
+
+message EpistemicState {
+  bytes state_hash = 1;
+  int64 timestamp_ns = 2;
+  string agent_id = 3;
+  string session_id = 4;
+  bytes context_window = 5;
+  repeated MemoryShard active_memory = 6;
+  DeclaredIntent intent = 7;
+  repeated GroundingSource sources = 8;
+}
+
+message MemoryShard {
+  string id = 1;
+}
+
+message DeclaredIntent {
+  string action_type = 1;
+  string target_substrate = 2;
+  string stated_goal = 3;
+  float confidence = 4;
+}
+
+message GroundingSource {
+  string source = 1;
+}
+
+message IntentDelta {
+  string diff = 1;
+}
+
+message MemoryDelta {
+  string diff = 1;
+}

@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package arkhe.worldmodel.v1;
+
+import "arkhe/common/v1/header.proto";
+
+service WorldModelService {
+  rpc Query(QueryRequest) returns (QueryResponse);
+  rpc Simulate(SimulateRequest) returns (stream SimulationChunk);
+  rpc IngestGrounding(IngestGroundingRequest) returns (IngestGroundingResponse);
+}
+
+message QueryRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  string query_text = 2;
+  repeated Modality modalities = 3;
+  repeated string memory_shard_ids = 4;
+  bool return_sources = 5;
+  ComputeBudget budget = 6;
+}
+
+message QueryResponse {
+  string response_id = 1;
+  string generated_text = 2;
+  repeated Modality output_modalities = 3;
+  repeated GroundingRef sources = 4;
+  float confidence = 5;
+  int32 tokens_used = 6;
+  int32 inference_ms = 7;
+}
+
+message SimulateRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  string scenario_id = 2;
+  bytes scenario_config = 3;
+  int32 horizon_steps = 4;
+  bool return_trajectory = 5;
+}
+
+message SimulationChunk {
+  string chunk_id = 1;
+}
+
+message IngestGroundingRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  repeated GroundingFact facts = 2;
+}
+
+message IngestGroundingResponse {
+  int32 facts_ingested = 1;
+  int32 facts_rejected = 2;
+  string batch_id = 3;
+}
+
+message ComputeBudget {
+  int32 max_tokens = 1;
+  float max_latency_sec = 2;
+  string complexity_tier = 3;
+}
+
+message GroundingFact {
+  string fact_id = 1;
+  string fact_type = 2;
+  bytes content = 3;
+  float trust_score = 4;
+  int64 observed_at_ns = 5;
+  string source_uri = 6;
+}
+
+message Modality {
+  string type = 1;
+}
+
+message GroundingRef {
+  string ref = 1;
+}

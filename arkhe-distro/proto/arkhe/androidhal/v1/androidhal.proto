@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package arkhe.androidhal.v1;
+
+import "arkhe/common/v1/header.proto";
+
+service AndroidHALService {
+  rpc StreamTelemetry(stream TelemetryPacket) returns (stream TelemetryAck);
+  rpc SendCommand(SendCommandRequest) returns (SendCommandResponse);
+  rpc RegisterDevice(RegisterDeviceRequest) returns (RegisterDeviceResponse);
+}
+
+message TelemetryPacket {
+  arkhe.common.v1.ArkheHeader header = 1;
+  string device_id = 2;
+  repeated SensorReading readings = 3;
+  int64 batch_timestamp_ns = 4;
+}
+
+message TelemetryAck {
+  string ack = 1;
+}
+
+message SendCommandRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  string device_id = 2;
+  string command_type = 3;
+  bytes parameters_json = 4;
+}
+
+message SendCommandResponse {
+  string command_id = 1;
+  string status = 2;
+  bytes response_data = 3;
+}
+
+message RegisterDeviceRequest {
+  arkhe.common.v1.ArkheHeader header = 1;
+  string device_id = 2;
+  bytes device_pubkey = 3;
+  repeated string channels = 4;
+  string device_model = 5;
+}
+
+message RegisterDeviceResponse {
+  bool registered = 1;
+  string assigned_node = 2;
+  bytes mesh_pubkey = 3;
+  string temporal_event_id = 4;
+}
+
+message SensorReading {
+  string sensor_type = 1;
+  bytes data = 2;
+  float accuracy = 3;
+  int64 sampled_at_ns = 4;
+}

@@ -13,3 +13,4 @@ control-plane
 go.work
 arkhe-distro/gen/
 __pycache__/
+target/

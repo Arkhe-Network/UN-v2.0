@@ -1,0 +1,13 @@
+[package]
+name = "arklib_meta"
+version = "0.1.0"
+edition = "2021"
+description = "Atributos procedurais canónicos para a plataforma ARKHE"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+quote = "1.0"
+syn = { version = "2.0", features = ["full"] }
+proc-macro2 = "1.0"
